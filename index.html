@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muzeum Piotrków</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <img id="bgimg" src="njeuron.jpg" alt="">
+
+    <header>
+        <div class="header-content">
+            <img src="aniou.png" alt="" class="header-logo mirrored">
+            <div class="header-text">
+                <h1>Ultra Muzeum Piotrków</h1>
+                <i>"Publiczna Encyklopedia Bartkowskich"</i>
+            </div>
+            <img src="aniou.png" alt="" class="header-logo">
+        </div>
+    </header>
+
+    <main>
+        <div class="gallery-container">
+            <div class="img-item">
+                <img class="gallery-img" src="njeuron.jpg" alt="">
+                <p class="img-desc">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque, commodi minus, dolorem asperiores eos modi.</p>
+            </div>
+
+            <div class="img-item">
+                <img class="gallery-img" src="njeuron.jpg" alt="">
+                <div class="custom-player">
+                    <audio id="audio-element" src="nofotos.mp3"></audio>
+                    <button id="play-btn">▶</button>
+                    <div class="player-controls">
+                        <div class="progress-area" id="progress-container">
+                            <div class="progress-bar" id="progress-bar"></div>
+                        </div>
+                        <div class="time-box">
+                            <span id="current-time">0:00</span> / <span id="duration">0:00</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="img-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam libero unde ullam illum sunt accusantium.</p>
+                
+                
+            </div>
+
+            <div class="img-item">
+                <img class="gallery-img" src="njeuron.jpg" alt="">
+                <p class="img-desc">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam libero unde ullam illum sunt accusantium.</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

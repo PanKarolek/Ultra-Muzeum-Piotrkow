@@ -1,0 +1,95 @@
+html {
+    background-color: #000;
+}
+
+body {
+    background-color: #000;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    font-family: "Arial Black", sans-serif;
+}
+
+#flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 100;
+    transition: opacity 0.05s;
+}
+
+#overlay {
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 10;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+    user-select: none;
+}
+
+#container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+img {
+    display: none;
+    width: 40%;
+    border-radius: 50px;
+    animation: ultraSpin 5s linear infinite;
+    will-change: transform;
+}
+
+.disco-mode {
+    animation: bgFlash 0.2s infinite, shake 0.1s infinite;
+}
+
+.disco-img {
+    animation: discoSpin 0.4s linear infinite !important;
+    filter: drop-shadow(0 0 30px #fff) contrast(150%);
+}
+
+@keyframes ultraSpin {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.3); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+@keyframes discoSpin {
+    0% { transform: rotate(0deg) scale(1.2) skew(0deg); filter: hue-rotate(0deg) blur(0px); }
+    25% { transform: rotate(90deg) scale(1.8) skew(5deg); filter: blur(2px); }
+    50% { transform: rotate(180deg) scale(1.2) skew(-5deg); filter: hue-rotate(180deg) blur(0px); }
+    100% { transform: rotate(360deg) scale(1.2) skew(0deg); filter: hue-rotate(360deg); }
+}
+
+@keyframes bgFlash {
+    0% { background-color: #330000; }
+    25% { background-color: #003300; }
+    50% { background-color: #000033; }
+    75% { background-color: #333300; }
+    100% { background-color: #330033; }
+}
+
+@keyframes shake {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(5px, -5px); }
+    50% { transform: translate(-5px, 5px); }
+    75% { transform: translate(5px, 5px); }
+    100% { transform: translate(-5px, -5px); }
+}

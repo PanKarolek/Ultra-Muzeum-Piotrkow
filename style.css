@@ -72,6 +72,54 @@ header i {
     box-sizing: border-box;
 }
 
+nav {
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: fixed;
+    width: 100%;
+    text-align: center;
+    z-index: 9999;
+    padding: 20px;
+    font-family: "DynaPuff";
+    transition: 0.5s;
+}
+
+nav a {
+    display: inline-block;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: 0.3s;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -5px;
+    left: 0;
+    background: white;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    transform: scale(1.1)
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+}
+
 .img-item {
     display: flex;
     background: rgba(255, 255, 255, 0.03);
@@ -172,7 +220,12 @@ header i {
     border-radius: 5px;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 .time-box {
+    font-family: "DynaPuff";
     font-size: 10px;
     text-align: right;
     margin-top: 4px;
@@ -185,10 +238,4 @@ header i {
     .img-item { flex-direction: column; align-items: center; text-align: center; }
     .item-left { flex: 0 0 auto; width: 100%; max-width: 400px; }
     .item-right { text-align: center; }
-}
-
-@media (max-width: 600px) {
-    .gallery-img:hover {
-        transform: scale(1.05);
-    }
 }

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KACPER ULTRA TURBO DISCO</title>
+    <link rel="stylesheet" href="kacper.css">
+</head>
+<body id="bg">
+
+    <div id="flash"></div>
+    <div id="overlay">nie klikaj w nic, comming soon</div>
+
+    <div id="container">
+        <img src="Zrzut_ekranu_2026-01-15_224122.png" alt="" id="target">
+    </div>
+
+    <audio id="freebird" loop>
+        <source src="freebird.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        const overlay = document.getElementById('overlay');
+        const audio = document.getElementById('freebird');
+        const img = document.getElementById('target');
+        const body = document.getElementById('bg');
+        const flash = document.getElementById('flash');
+
+        let clickCount = 0;
+        const messages = [
+            "nie klikaj w nic, comming soon",
+            "mówiłem wyraźnie: NIE KLIKAJ.",
+            "OSTATNIE OSTRZEŻENIE. PRZESTAŃ."
+        ];
+
+        window.addEventListener('click', () => {
+            clickCount++;
+
+            if (clickCount < 4) {
+                overlay.innerText = messages[clickCount] || messages[2];
+                if (clickCount === 3) {
+                    overlay.style.color = "red";
+                    overlay.style.fontSize = "3rem";
+                }
+            } else if (clickCount === 4) {
+                audio.play();
+                overlay.style.display = 'none';
+                img.style.display = 'inline-block';
+
+                setTimeout(() => {
+                    body.classList.add('disco-mode');
+                    img.classList.add('disco-img');
+                    
+                    setInterval(() => {
+                        if(body.classList.contains('disco-mode')) {
+                            flash.style.opacity = '1';
+                            setTimeout(() => flash.style.opacity = '0', 50);
+                        }
+                    }, 400);
+                }, 19600);
+            }
+        });
+
+        audio.addEventListener('seeked', () => {
+            if (audio.currentTime < 1) {
+                body.classList.remove('disco-mode');
+                img.classList.remove('disco-img');
+            }
+        });
+    </script>
+</body>
+</html>

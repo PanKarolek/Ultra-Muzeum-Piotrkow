@@ -78,3 +78,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
     console.log("System Piotrków zainicjalizowany pomyślnie!");
 });
+

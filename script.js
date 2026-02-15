@@ -21,12 +21,10 @@ btn.addEventListener('click', () => {
         return;
     }
 
-    // Pobranie opłaty
     pts -= 100;
     localStorage.setItem('piotrPoints', pts);
     scoreDisplay.innerText = pts;
 
-    // Reset i efekty
     btn.disabled = true;
     display.style.display = "none";
     wrapper.classList.add('shaking-intense');
@@ -36,7 +34,7 @@ btn.addEventListener('click', () => {
     sndSpin.play().catch(() => {});
 
     setTimeout(() => {
-        // Losowanie wagowe
+
         const total = piotrowie.reduce((acc, p) => acc + p.weight, 0);
         let r = Math.random() * total;
         let s = piotrowie[0];

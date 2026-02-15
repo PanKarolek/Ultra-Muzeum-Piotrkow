@@ -163,6 +163,7 @@ nav ul {
 
 .gallery-img:hover {
     transform: scale(1.2) rotateZ(5deg);
+    z-index: 9999999999;
 }
 
 .img-desc {

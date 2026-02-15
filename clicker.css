@@ -1,4 +1,4 @@
-/* Centrowanie wszystkiego na środku ekranu */
+
 .clicker-container {
     display: flex;
     flex-direction: column;
@@ -6,11 +6,11 @@
     align-items: center;
     min-height: 100vh;
     width: 100%;
-    padding-top: 80px; /* miejsce na nav */
+    padding-top: 80px;
     box-sizing: border-box;
 }
 
-/* Tablica wyników w stylu Twoich innych stron */
+
 .score-board {
     background: rgba(0, 0, 0, 0.7);
     padding: 15px 30px;
@@ -23,7 +23,7 @@
     box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
 }
 
-/* Strefa klikania */
+
 .click-zone {
     position: relative;
     display: flex;
@@ -33,7 +33,7 @@
 
 #piotr-target {
     border-radius: 30px;
-    width: clamp(250px, 40vw, 400px); /* Elastyczny rozmiar */
+    width: clamp(250px, 40vw, 400px); 
     cursor: pointer;
     transition: transform 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
@@ -42,7 +42,7 @@
 }
 
 #piotr-target:active {
-    transform: scale(0.85); /* Mocniejszy efekt kliknięcia */
+    transform: scale(0.85); 
 }
 
 .click-info {
@@ -53,12 +53,16 @@
 }
 
 .click-info h2 {
-    font-family: "DynaPuff";
+    font-family: "Barriecito";
     letter-spacing: 2px;
     margin-bottom: 5px;
 }
 
-/* Animacja wyskakującego +1 */
+p {
+    font-family: "DynaPuff";
+}
+
+
 .pop-text {
     position: absolute;
     color: #f1c40f;

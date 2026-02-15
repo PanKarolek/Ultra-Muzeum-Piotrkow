@@ -13,7 +13,6 @@
 </head>
 <body>
     <img id="bgimg" src="njeuron.jpg" alt="">
-
     <nav>
         <ul>
             <li><a href="index.html"><i class="fa-solid fa-building-columns"></i> Muzeum</a></li>
@@ -23,21 +22,27 @@
     </nav>
 
     <div class="clicker-container">
-        <div class="score-board">
-            <i class="fa-solid fa-star"></i> Piotr-Punkty: <span id="points-val">0</span>
+        <div class="clicker-section">
+            <div class="score-board">
+                <i class="fa-solid fa-star"></i> Piotr-Punkty: <span id="points-val">0</span>
+            </div>
+            <div class="click-zone">
+                <img src="lilbabypiotr.png" id="piotr-target" alt="Piotr">
+            </div>
+            <div class="stats-small">
+                <span>Moc: <b id="click-power-val">1</b></span>
+                <span>Auto: <b id="auto-click-val">0</b>/s</span>
+            </div>
         </div>
 
-        <div class="click-zone">
-            <img src="lilbabypiotr.png" id="piotr-target" alt="Klikaj!">
-        </div>
-
-        <div class="click-info">
-            <h2>KLIKAJ W LILBABY PIOTRA</h2>
-            <p>Zbieraj punkty na nowe losowania w Spinie!</p>
+        <div class="shop-panel">
+            <h2>PIOTR-SKLEP</h2>
+            <div id="shop-items"></div>
         </div>
     </div>
 
-    <audio id="snd-piotr" src="odblokujciemnie.ogg" preload="auto"></audio>
+    <audio id="snd-piotr" src="odblokujciemnie.ogg"></audio>
+    <audio id="snd-buy" src="buy.mp3"></audio>
 
     <script src="clicker.js"></script>
 </body>

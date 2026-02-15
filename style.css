@@ -240,3 +240,52 @@ html {
     .item-left { flex: 0 0 auto; width: 100%; max-width: 400px; }
     .item-right { text-align: center; }
 }
+
+/* --- Style dla Zablokowanych Piotrków --- */
+.img-item.locked {
+    position: relative;
+    pointer-events: none; /* Blokuje klikanie */
+}
+
+.img-item.locked .gallery-img {
+    filter: brightness(0) invert(0.1); /* Robi czarną sylwetkę */
+    opacity: 0.6;
+}
+
+.img-item.locked .item-right h2 {
+    background: #333;
+    color: transparent;
+    border-radius: 5px;
+    border: none;
+    width: fit-content;
+}
+
+.img-item.locked .item-right h2::after {
+    content: "???";
+    color: #555;
+    position: absolute;
+    left: 0;
+    margin-left: 30px; /* Dopasowanie do paddingu */
+}
+
+.img-item.locked .img-desc {
+    visibility: hidden; /* Ukrywa opis */
+}
+
+.img-item.locked .custom-player {
+    display: none !important; /* Ukrywa odtwarzacz */
+}
+
+/* Ikona kłódki na środku obrazka */
+.img-item.locked .item-left::after {
+    content: "\f023"; /* Kod FontAwesome dla kłódki */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 80px;
+    color: rgba(255, 255, 255, 0.3);
+    z-index: 20;
+}

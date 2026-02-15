@@ -1,15 +1,21 @@
-
 .clicker-container {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     width: 100%;
     padding-top: 80px;
     box-sizing: border-box;
+    gap: 40px;
 }
 
+.clicker-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    margin-left: 360px;
+}
 
 .score-board {
     background: rgba(0, 0, 0, 0.7);
@@ -19,10 +25,26 @@
     font-family: "DynaPuff";
     font-size: 32px;
     color: #f1c40f;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
 }
 
+.stats-small {
+    font-size: 18px;
+    color: #fff;
+    margin-top: 15px;
+    font-family: "DynaPuff", sans-serif;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.stats-small span {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 4px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(241, 196, 15, 0.4);
+}
 
 .click-zone {
     position: relative;
@@ -33,48 +55,86 @@
 
 #piotr-target {
     border-radius: 30px;
-    width: clamp(250px, 40vw, 400px); 
+    width: clamp(250px, 35vw, 380px);
     cursor: pointer;
     transition: transform 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
     user-select: none;
-    -webkit-user-drag: none;
 }
 
-#piotr-target:active {
-    transform: scale(0.85); 
-}
-
-.click-info {
-    text-align: center;
-    margin-top: 30px;
-    color: white;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
-}
-
-.click-info h2 {
-    font-family: "Barriecito";
-    letter-spacing: 2px;
-    margin-bottom: 5px;
-}
-
-p {
+.shop-panel {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(241, 196, 15, 0.3);
+    border-radius: 20px;
+    padding: 20px;
+    width: 320px;
     font-family: "DynaPuff";
+    color: white;
+    z-index: 10;
+    margin-right: 50px;
 }
 
+.shop-panel h2 {
+    text-align: center;
+    color: #f1c40f;
+    margin-top: 0;
+}
+
+.upgrade-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
+.upgrade-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+}
+
+.upgrade-desc {
+    font-size: 11px;
+    color: #ccc;
+    margin: 5px 0;
+}
+
+.buy-btn {
+    width: 100%;
+    background: #27ae60;
+    border: none;
+    color: white;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer !important;
+    font-family: "DynaPuff";
+    pointer-events: auto !important;
+}
+
+.buy-btn:disabled {
+    background: #444;
+    cursor: not-allowed !important;
+}
 
 .pop-text {
     position: absolute;
     color: #f1c40f;
     font-family: "DynaPuff";
-    font-size: 35px;
+    font-size: 32px;
     font-weight: bold;
-    pointer-events: none;
+    pointer-events: none !important;
     animation: flyUp 0.6s ease-out forwards;
     z-index: 1000;
 }
 
 @keyframes flyUp {
     0% { transform: translateY(0); opacity: 1; }
-    100% { transform: translateY(-150px) rotate(10deg); opacity: 0; }
+    100% { transform: translateY(-120px); opacity: 0; }
+}
+
+@media (max-width: 1100px) {
+    .clicker-container { flex-direction: column; }
+    .clicker-section { margin-left: 0; }
+    .shop-panel { width: 90%; max-width: 400px; }
 }

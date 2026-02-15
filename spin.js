@@ -10,7 +10,13 @@ const piotrowie = [
     { name: "LilBaby Piotr", rarity: "Pospolity", weight: 40, points: 10, img: "lilbabypiotr.png", desc: "Może przemienić się w LALECZKĘ CZAKI." },
     { name: "Raper Piotr", rarity: "Rzadki", weight: 25, points: 80, img: "raperpiotr.png", desc: "Śpiewa o wygiętych telefonach." },
     { name: "Piotrek Szwarceneger", rarity: "Epicki", weight: 12, points: 250, img: "arnold.png", desc: "Najsilniejszy i najgłupszy. Kajakowa siłownia." },
-    { name: "Najmłodszy Piotr", rarity: "Mityczny", weight: 5, points: 1000, img: "najmlodszypiotreknaswiecie.png", desc: "Wygrał 'Mam Piotrrek' przez wiek." }
+    { name: "Najmłodszy Piotrek na świecie", rarity: "Mityczny", weight: 5, points: 1000, img: "najmlodszypiotreknaswiecie.png", desc: "Wygrał 'Mam Piotrrek' przez wiek." },
+    { name: "Seweryn", rarity: "Epicki", weight: 12, points: 126, img: "Seweryn.png", desc: "CO ON TU W OGÓLE ROBI!?!?!?!" },
+    { name: "Nonszalancki Piotr", rarity: "Mityczny", weight: 6, points: 998, img: "nonszalantpiotr.png", desc: "Uważa się za sigmę, taką jak Thomas Shelby z jego ulubionego serialu „Peaky Blinders" },
+    { name: "Szambonurek Piotr", rarity: "Rzadki", weight: 25, points: 70, img: "szambonurekpiotr.png", desc: "Od rana do wieczora nurkował w szambie" },
+    { name: "Piotr Smakosz", rarity: "Rzadki", weight: 30, points: 43, img: "piotrsmakosz.png", desc: "Legenda głosi, że potrafi wyczuć dostawę jedzenia z odległości trzech ulic" },
+    { name: "Piotr PC Builder", rarity: "Epicki", weight: 13, points: 400, img: "piotrpcbuilder.png", desc: "Zamiast kupić hulajnogę i siedem telefonów, sprzedał wszystko, żeby złożyć swój pierwszy komputer" },
+    { name: "Małpi Król Piotr", rarity: "Mityczny", weight: 3, points: 1500, img: "malpkikrolpiotr.png", desc: "Otoczony armią małych małpek siedzących na głowie, zachowuje stoicki wyraz twarzy" }
 ];
 
 let points = parseInt(localStorage.getItem('piotrPoints')) || 0;

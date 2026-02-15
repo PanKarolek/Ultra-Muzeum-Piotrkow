@@ -1,64 +1,80 @@
-const piotrowie = [
-    { name: "Piotrek GIF-owy", rarity: "Pospolity", weight: 40, img: "https://media1.tenor.com/m/xdLLarY6NmAAAAAd/piotrek-ma%C5%82pa.gif", desc: "Tak naprawdę jest MAŁPKĄ!" },
-    { name: "NoFotos Piotr", rarity: "Rzadki", weight: 25, img: "nofotos.png", desc: "Bardzo ciężki do sfotografowania." },
-    { name: "Piotrek 096", rarity: "Epicki", weight: 12, img: "piotrek096.jpg", desc: "Patrzenie mu w oczy grozi śmiercią." },
-    { name: "PiotrkoLiza", rarity: "Mityczny", weight: 5, img: "piotrkoliza.png", desc: "Dzieło Basi Davinci." }
-];
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. OBSŁUGA AUDIO W KARTACH MUZEUM
+    const items = document.querySelectorAll('.img-item');
 
-const colors = { "Pospolity": "#95a5a6", "Rzadki": "#3498db", "Epicki": "#9b59b6", "Mityczny": "#f1c40f" };
+    items.forEach(item => {
+        const audio = item.querySelector('.audio-element');
+        const playBtn = item.querySelector('.play-btn');
+        const progressBar = item.querySelector('.progress-bar');
+        const progressArea = item.querySelector('.progress-area');
+        const currentTimeEl = item.querySelector('.current-time');
+        const durationEl = item.querySelector('.duration');
 
-let pts = parseInt(localStorage.getItem('piotrPoints')) || 0;
-const scoreDisplay = document.getElementById('score');
-const btn = document.getElementById('spin-btn');
-const display = document.getElementById('result-display');
-const wrapper = document.getElementById('spin-main-box');
+        if (!audio || !playBtn) return; // Zabezpieczenie przed brakiem elementów
 
-scoreDisplay.innerText = pts;
+        // Formatowanie czasu (np. 125s -> 2:05)
+        const formatTime = (time) => {
+            const min = Math.floor(time / 60);
+            const sec = Math.floor(time % 60);
+            return `${min}:${sec < 10 ? '0' + sec : sec}`;
+        };
 
-btn.addEventListener('click', () => {
-    if (pts < 100) {
-        alert("Brakuje Ci punktów! Klikaj w Clickerze!");
-        return;
-    }
+        // Ustawienie czasu trwania po załadowaniu pliku
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.innerText = formatTime(audio.duration);
+        });
 
-    pts -= 100;
-    localStorage.setItem('piotrPoints', pts);
-    scoreDisplay.innerText = pts;
+        // Kliknięcie przycisku Play
+        playBtn.addEventListener('click', () => {
+            // Zatrzymujemy inne Piotrki, żeby nie grały na raz
+            document.querySelectorAll('.audio-element').forEach(otherAudio => {
+                if (otherAudio !== audio) {
+                    otherAudio.pause();
+                    const otherBtn = otherAudio.closest('.img-item').querySelector('.play-btn');
+                    if (otherBtn) otherBtn.innerText = '▶';
+                }
+            });
 
-    btn.disabled = true;
-    display.style.display = "none";
-    wrapper.classList.add('shaking-intense');
-    
-    const sndSpin = document.getElementById('sound-spin');
-    sndSpin.currentTime = 0;
-    sndSpin.play().catch(() => {});
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Błąd odtwarzania:", e));
+                playBtn.innerText = '⏸';
+            } else {
+                audio.pause();
+                playBtn.innerText = '▶';
+            }
+        });
 
-    setTimeout(() => {
+        // Aktualizacja paska postępu w czasie rzeczywistym
+        audio.addEventListener('timeupdate', () => {
+            const progress = (audio.currentTime / audio.duration) * 100;
+            if (progressBar) progressBar.style.width = `${progress}%`;
+            if (currentTimeEl) currentTimeEl.innerText = formatTime(audio.currentTime);
+        });
 
-        const total = piotrowie.reduce((acc, p) => acc + p.weight, 0);
-        let r = Math.random() * total;
-        let s = piotrowie[0];
-        for (let p of piotrowie) {
-            if (r < p.weight) { s = p; break; }
-            r -= p.weight;
+        // Przewijanie po kliknięciu w pasek
+        if (progressArea) {
+            progressArea.addEventListener('click', (e) => {
+                const width = progressArea.clientWidth;
+                const clickX = e.offsetX;
+                audio.currentTime = (clickX / width) * audio.duration;
+            });
         }
 
-        // Wstawianie danych
-        document.getElementById('p-name').innerText = s.name;
-        document.getElementById('p-desc').innerText = s.desc;
-        document.getElementById('p-img').src = s.img;
-        
-        const badge = document.getElementById('rarity-badge');
-        badge.innerText = s.rarity.toUpperCase();
-        badge.style.backgroundColor = colors[s.rarity];
+        // Reset po zakończeniu
+        audio.addEventListener('ended', () => {
+            playBtn.innerText = '▶';
+            if (progressBar) progressBar.style.width = '0%';
+        });
+    });
 
-        // Finał
-        wrapper.classList.remove('shaking-intense');
-        document.body.classList.add('white-flash');
-        display.style.display = "flex";
-        document.getElementById('sound-win').play().catch(() => {});
+    // 2. INICJALIZACJA AOS (Animacje przy skrolowaniu)
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    }
 
-        setTimeout(() => document.body.classList.remove('white-flash'), 300);
-        btn.disabled = false;
-    }, 5800);
+    console.log("System Piotrków zainicjalizowany pomyślnie!");
 });

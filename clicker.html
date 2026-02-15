@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piotr Clicker - Ultra Muzeum</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="clicker.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barriecito&family=DynaPuff:wght@400..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+    <img id="bgimg" src="njeuron.jpg" alt="">
+
+    <nav>
+        <ul>
+            <li><a href="index.html"><i class="fa-solid fa-building-columns"></i> Muzeum</a></li>
+            <li><a href="clicker.html"><i class="fa-solid fa-hand-pointer"></i> Piotr Clicker</a></li>
+            <li><a href="spin.html"><i class="fa-solid fa-dice-five"></i> Spin a Piotrek</a></li>
+        </ul>
+    </nav>
+
+    <div class="clicker-container">
+        <div class="score-board">
+            <i class="fa-solid fa-star"></i> Piotr-Punkty: <span id="points-val">0</span>
+        </div>
+
+        <div class="click-zone">
+            <img src="lilbabypiotr.png" id="piotr-target" alt="Klikaj!">
+        </div>
+
+        <div class="click-info">
+            <h2>KLIKAJ W LILBABY PIOTRA</h2>
+            <p>Zbieraj punkty na nowe losowania w Spinie!</p>
+        </div>
+    </div>
+
+    <audio id="snd-piotr" src="odblokujciemnie.ogg" preload="auto"></audio>
+
+    <script src="clicker.js"></script>
+</body>
+</html>

@@ -1,59 +1,66 @@
-document.querySelectorAll('.img-item').forEach(item => {
-    const audio = item.querySelector('audio');
-    const playBtn = item.querySelector('.play-btn');
-    const progressBar = item.querySelector('.progress-bar');
-    const progressArea = item.querySelector('.progress-area');
-    const currentTimeEl = item.querySelector('.current-time');
-    const durationEl = item.querySelector('.duration');
+const piotrowie = [
+    { name: "Piotrek GIF-owy", rarity: "Pospolity", weight: 40, img: "https://media1.tenor.com/m/xdLLarY6NmAAAAAd/piotrek-ma%C5%82pa.gif", desc: "Tak naprawdę jest MAŁPKĄ!" },
+    { name: "NoFotos Piotr", rarity: "Rzadki", weight: 25, img: "nofotos.png", desc: "Bardzo ciężki do sfotografowania." },
+    { name: "Piotrek 096", rarity: "Epicki", weight: 12, img: "piotrek096.jpg", desc: "Patrzenie mu w oczy grozi śmiercią." },
+    { name: "PiotrkoLiza", rarity: "Mityczny", weight: 5, img: "piotrkoliza.png", desc: "Dzieło Basi Davinci." }
+];
 
-    function formatTime(seconds) {
-        if (isNaN(seconds)) return "0:00";
-        const min = Math.floor(seconds / 60);
-        const sec = Math.floor(seconds % 60);
-        return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+const colors = { "Pospolity": "#95a5a6", "Rzadki": "#3498db", "Epicki": "#9b59b6", "Mityczny": "#f1c40f" };
+
+let pts = parseInt(localStorage.getItem('piotrPoints')) || 0;
+const scoreDisplay = document.getElementById('score');
+const btn = document.getElementById('spin-btn');
+const display = document.getElementById('result-display');
+const wrapper = document.getElementById('spin-main-box');
+
+scoreDisplay.innerText = pts;
+
+btn.addEventListener('click', () => {
+    if (pts < 100) {
+        alert("Brakuje Ci punktów! Klikaj w Clickerze!");
+        return;
     }
 
-    const setDuration = () => {
-        durationEl.innerText = formatTime(audio.duration);
-    };
+    // Pobranie opłaty
+    pts -= 100;
+    localStorage.setItem('piotrPoints', pts);
+    scoreDisplay.innerText = pts;
 
-    if (audio.readyState > 0) {
-        setDuration();
-    } else {
-        audio.addEventListener('loadedmetadata', setDuration);
-    }
+    // Reset i efekty
+    btn.disabled = true;
+    display.style.display = "none";
+    wrapper.classList.add('shaking-intense');
+    
+    const sndSpin = document.getElementById('sound-spin');
+    sndSpin.currentTime = 0;
+    sndSpin.play().catch(() => {});
 
-    playBtn.addEventListener('click', () => {
-        if (audio.paused) {
-            document.querySelectorAll('audio').forEach(otherAudio => {
-                if (otherAudio !== audio) {
-                    otherAudio.pause();
-                    otherAudio.parentElement.querySelector('.play-btn').innerText = '▶';
-                }
-            });
-            audio.play();
-            playBtn.innerText = '❚❚';
-        } else {
-            audio.pause();
-            playBtn.innerText = '▶';
+    setTimeout(() => {
+        // Losowanie wagowe
+        const total = piotrowie.reduce((acc, p) => acc + p.weight, 0);
+        let r = Math.random() * total;
+        let s = piotrowie[0];
+        for (let p of piotrowie) {
+            if (r < p.weight) { s = p; break; }
+            r -= p.weight;
         }
-    });
 
-    audio.addEventListener('timeupdate', () => {
-        const progressPercent = (audio.currentTime / audio.duration) * 100;
-        progressBar.style.width = `${progressPercent}%`;
-        currentTimeEl.innerText = formatTime(audio.currentTime);
-    });
+        // Wstawianie danych
+        document.getElementById('p-name').innerText = s.name;
+        document.getElementById('p-desc').innerText = s.desc;
+        document.getElementById('p-img').src = s.img;
+        
+        const badge = document.getElementById('rarity-badge');
+        badge.innerText = s.rarity.toUpperCase();
+        badge.style.backgroundColor = colors[s.rarity];
 
-    progressArea.addEventListener('click', (e) => {
-        const width = progressArea.clientWidth;
-        const clickX = e.offsetX;
-        audio.currentTime = (clickX / width) * audio.duration;
-    });
+        // Finał
+        wrapper.classList.remove('shaking-intense');
+        document.body.classList.add('white-flash');
+        display.style.display = "flex";
+        document.getElementById('sound-win').play().catch(() => {});
 
-    audio.addEventListener('ended', () => {
-        playBtn.innerText = '▶';
-        progressBar.style.width = '0%';
-        currentTimeEl.innerText = '0:00';
-    });
+        setTimeout(() => document.body.classList.remove('white-flash'), 300);
+        btn.disabled = false;
+    }, 5800);
 });

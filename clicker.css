@@ -1,0 +1,76 @@
+/* Centrowanie wszystkiego na środku ekranu */
+.clicker-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 80px; /* miejsce na nav */
+    box-sizing: border-box;
+}
+
+/* Tablica wyników w stylu Twoich innych stron */
+.score-board {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px 30px;
+    border-radius: 50px;
+    border: 2px solid #f1c40f;
+    font-family: "DynaPuff";
+    font-size: 32px;
+    color: #f1c40f;
+    margin-bottom: 40px;
+    box-shadow: 0 0 20px rgba(241, 196, 15, 0.3);
+}
+
+/* Strefa klikania */
+.click-zone {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#piotr-target {
+    border-radius: 30px;
+    width: clamp(250px, 40vw, 400px); /* Elastyczny rozmiar */
+    cursor: pointer;
+    transition: transform 0.05s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.1));
+    user-select: none;
+    -webkit-user-drag: none;
+}
+
+#piotr-target:active {
+    transform: scale(0.85); /* Mocniejszy efekt kliknięcia */
+}
+
+.click-info {
+    text-align: center;
+    margin-top: 30px;
+    color: white;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+
+.click-info h2 {
+    font-family: "DynaPuff";
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+}
+
+/* Animacja wyskakującego +1 */
+.pop-text {
+    position: absolute;
+    color: #f1c40f;
+    font-family: "DynaPuff";
+    font-size: 35px;
+    font-weight: bold;
+    pointer-events: none;
+    animation: flyUp 0.6s ease-out forwards;
+    z-index: 1000;
+}
+
+@keyframes flyUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-150px) rotate(10deg); opacity: 0; }
+}

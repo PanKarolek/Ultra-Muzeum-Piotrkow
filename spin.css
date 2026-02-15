@@ -1,0 +1,110 @@
+/* GŁÓWNY KONTENER NA ŚRODKU */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 80px; /* Miejsce na nav */
+    box-sizing: border-box;
+}
+
+.spin-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 100%;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.spin-title {
+    font-size: clamp(30px, 8vw, 60px);
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    margin: 20px 0;
+}
+
+/* LICZNIK */
+.score-container {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px 25px;
+    border-radius: 30px;
+    border: 2px solid #f1c40f;
+    font-family: "DynaPuff";
+    font-size: 20px;
+    color: #f1c40f;
+    box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+}
+
+/* KARTA WYNIKU */
+#result-display {
+    width: 100%;
+    max-width: 700px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    overflow: hidden;
+}
+
+.rarity-tag {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 5px 12px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    z-index: 10;
+}
+
+#points-earned {
+    color: #f1c40f;
+    font-weight: bold;
+    font-size: 20px;
+    margin-top: 10px;
+}
+
+/* PRZYCISK */
+.draw-btn {
+    background: linear-gradient(135deg, #ff0055, #ffcc00);
+    border: none;
+    padding: 20px 40px;
+    color: white;
+    font-family: "DynaPuff";
+    font-size: clamp(18px, 4vw, 24px);
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(255, 0, 85, 0.4);
+    transition: 0.3s;
+}
+
+.draw-btn:hover:not(:disabled) { transform: scale(1.05); }
+.draw-btn:disabled { background: #444; cursor: not-allowed; box-shadow: none; }
+
+/* ANIMACJE */
+.shaking-intense { animation: shake 5.8s both; }
+@keyframes shake {
+    0%, 100% { transform: translate(0, 0); }
+    10%, 30%, 50%, 70%, 90% { transform: translate(-4px, 4px); }
+    20%, 40%, 60%, 80% { transform: translate(4px, -4px); }
+}
+
+.white-flash { background-color: white !important; transition: 0.1s; }
+
+.animate-mega-in {
+    animation: megaPop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+@keyframes megaPop {
+    0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+    100% { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+@media (max-width: 600px) {
+    #result-display { flex-direction: column; }
+    .item-left, .item-right { width: 100% !important; }
+}

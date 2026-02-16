@@ -16,7 +16,8 @@ const piotrowie = [
     { name: "Szambonurek Piotr", rarity: "Rzadki", weight: 25, points: 70, img: "szambonurekpiotr.png", desc: "Od rana do wieczora nurkował w szambie" },
     { name: "Piotr Smakosz", rarity: "Rzadki", weight: 30, points: 43, img: "piotrsmakosz.png", desc: "Legenda głosi, że potrafi wyczuć dostawę jedzenia z odległości trzech ulic" },
     { name: "Piotr PC Builder", rarity: "Epicki", weight: 13, points: 400, img: "piotrpcbuilder.png", desc: "Zamiast kupić hulajnogę i siedem telefonów, sprzedał wszystko, żeby złożyć swój pierwszy komputer" },
-    { name: "Małpi Król Piotr", rarity: "Mityczny", weight: 3, points: 1500, img: "malpkikrolpiotr.png", desc: "Otoczony armią małych małpek siedzących na głowie, zachowuje stoicki wyraz twarzy" }
+    { name: "Małpi Król Piotr", rarity: "Mityczny", weight: 3, points: 1500, img: "malpikrolpiotr.png", desc: "Otoczony armią małych małpek siedzących na głowie, zachowuje stoicki wyraz twarzy" },
+    { name: "Żyrafowy Piotr", rarity: "Mityczny", weight: 3, points: 1222, img: "zyrafowypiotr.png", desc: "Jedna ze śmieszniejszych wersji Piotra" }
 ];
 
 let points = parseInt(localStorage.getItem('piotrPoints')) || 0;

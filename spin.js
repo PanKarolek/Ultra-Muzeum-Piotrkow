@@ -87,15 +87,11 @@ btn.addEventListener('click', () => {
         document.getElementById('score').innerText = points;
 
         // Dodawanie do kolekcji
-        let collection = JSON.parse(localStorage.getItem('piotrCollection')) || {};
-
-        // Jeśli wcześniej miałeś tam tablicę [], to poniższa linia naprawi format na obiekt {}
-        if (Array.isArray(collection)) collection = {};
-
-        // To dodaje +1 do licznika konkretnego Piotra
-        collection[selected.name] = (collection[selected.name] || 0) + 1;
-
-        localStorage.setItem('piotrCollection', JSON.stringify(collection));
+        let collection = JSON.parse(localStorage.getItem('piotrCollection')) || [];
+        if (!collection.includes(selected.name)) {
+            collection.push(selected.name);
+            localStorage.setItem('piotrCollection', JSON.stringify(collection));
+        }
 
         // Aktualizacja UI wynikowego
         pName.innerText = selected.name;

@@ -87,22 +87,14 @@ btn.addEventListener('click', () => {
         document.getElementById('score').innerText = points;
 
         // Dodawanie do kolekcji
-       // 1. Pobierz obecną kolekcję z localStorage
         let collection = JSON.parse(localStorage.getItem('piotrCollection')) || {};
 
-        // 2. Jeśli kolekcja była wcześniej tablicą (stary system), zamień ją na obiekt
-        if (Array.isArray(collection)) {
-            let newCollection = {};
-            collection.forEach(name => {
-                newCollection[name] = 1;
-            });
-            collection = newCollection;
-        }
+        // Jeśli wcześniej miałeś tam tablicę [], to poniższa linia naprawi format na obiekt {}
+        if (Array.isArray(collection)) collection = {};
 
-        // 3. Dodaj +1 do wylosowanego właśnie Piotra (nie kasując poprzednich)
+        // To dodaje +1 do licznika konkretnego Piotra
         collection[selected.name] = (collection[selected.name] || 0) + 1;
 
-        // 4. Zapisz zaktualizowaną całość z powrotem do pamięci
         localStorage.setItem('piotrCollection', JSON.stringify(collection));
 
         // Aktualizacja UI wynikowego

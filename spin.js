@@ -20,7 +20,7 @@ const piotrowie = [
     { name: "Żyrafowy Piotr", rarity: "Mityczny", weight: 3, points: 1222, img: "zyrafowypiotr.png", desc: "Jedna ze śmieszniejszych wersji Piotra." },
     { name: "Śpiący Piotr", rarity: "Pospolity", weight: 35, points: 15, img: "spiacypiotr.png", desc: "Forma przejściowa. Śni o małpkach bijących się kijami." },
     { name: "Nieśpiący Piotr", rarity: "Rzadki", weight: 20, points: 45, img: "niespiacypiotr.png", desc: "Udaje sen przed mamą, by grać w CS-a do 4 rano." },
-    { name: "Piotr Pospolity", rarity: "Pospolity", weight: 50, points: 5, img: "piotrekpospolity.jpg", desc: "Baza wszystkich ewolucji. Spotykany w Płocku i na Litwie." },
+    { name: "Piotrek Pospolity", rarity: "Pospolity", weight: 50, points: 5, img: "piotrekpospolity.jpg", desc: "Baza wszystkich ewolucji. Spotykany w Płocku i na Litwie." },
     { name: "Gangster Piotr", rarity: "Epicki", weight: 10, points: 350, img: "gangsterpiotr.png", desc: "Przejął władzę w mafii. Jego twarz jest zawsze zamazana." },
     { name: "Laleczka CZAAKIIIIII", rarity: "Epicki", weight: 8, points: 450, img: "laleczkaczaki.png", desc: "Niepokonana mała bestia spragniona rozlewu krwi." },
     { name: "Dan Smoll Tanko", rarity: "Epicki", weight: 15, points: 280, img: "dansmolltanko.png", desc: "Towarzysz akcji w Afryce i kradzieży piramid." }
@@ -86,12 +86,19 @@ btn.addEventListener('click', () => {
         syncWithClicker(points);
         document.getElementById('score').innerText = points;
 
-        // Dodawanie do kolekcji
-        let collection = JSON.parse(localStorage.getItem('piotrCollection')) || [];
-        if (!collection.includes(selected.name)) {
-            collection.push(selected.name);
-            localStorage.setItem('piotrCollection', JSON.stringify(collection));
+        // Dodawanie do kolekcji (z licznikiem)
+        let collection = JSON.parse(localStorage.getItem('piotrCollection')) || {};
+
+        // Jeśli kolekcja była starą tablicą, zmigruj ją na obiekt
+        if (Array.isArray(collection)) {
+            let newColl = {};
+            collection.forEach(name => newColl[name] = 1);
+            collection = newColl;
         }
+
+        // Zwiększ licznik dla wylosowanego Piotra
+        collection[selected.name] = (collection[selected.name] || 0) + 1;
+        localStorage.setItem('piotrCollection', JSON.stringify(collection));
 
         // Aktualizacja UI wynikowego
         pName.innerText = selected.name;

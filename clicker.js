@@ -10,6 +10,7 @@ const upgradesConfig = {
     palec: { name: "Kajakowa Siłka", type: "click", baseCost: 300, basePower: 5, desc: "+5 do Mocy Klikania", icon: "fa-dumbbell" },
     malyPiotr: { name: "Zatrudnij Piotrka", type: "auto", baseCost: 150, basePower: 1, desc: "+1 Piotr-Punkt / sek", icon: "fa-child" },
     basia: { name: "Basia Davinci", type: "auto", baseCost: 1000, basePower: 10, desc: "+10 Piotr-Punktów / sek", icon: "fa-palette" }
+    piortr: { name: "Piortr", type: "auto", baseCost: 1, basePower: 1000000, desc: "-2 Piotr-Punktów / sek", icon: "fa-palette" }
 };
 
 const pointsDisplay = document.getElementById('points-val');
@@ -110,5 +111,6 @@ setInterval(() => {
         triggerEffects(gain, true);
     }
 }, 5000);
+
 
 updateUI();

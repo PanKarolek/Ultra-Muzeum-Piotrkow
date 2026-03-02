@@ -118,6 +118,13 @@
     transition: 0.3s;
 }
 
+.skip-btn {
+    background: #2c3e50;
+    padding: 10px 25px;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
 .draw-btn:hover:not(:disabled) { transform: scale(1.05); }
 .draw-btn:disabled { background: #444; cursor: not-allowed; box-shadow: none; }
 

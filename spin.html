@@ -42,9 +42,12 @@
                 </div>
             </div>
 
-            <div class="controls">
+            <div class="controls" style="display: flex; flex-direction: column; gap: 10px; align-items: center;">
                 <button id="spin-btn" class="draw-btn">
                     <i class="fa-solid fa-dice"></i> ZAKRĘĆ (100 PKT)
+                </button>
+                <button id="skip-btn" class="draw-btn skip-btn" style="display: none;">
+                    <i class="fa-solid fa-forward"></i> POMIŃ
                 </button>
             </div>
         </div>
@@ -53,8 +56,6 @@
     <audio id="sound-spin" src="spin.mp3" preload="auto"></audio>
     <audio id="sound-win" src="win.mp3" preload="auto"></audio>
 
-    <script src="spin.js">
-        
-    </script>
+    <script src="spin.js"></script>
 </body>
 </html>

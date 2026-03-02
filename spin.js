@@ -30,6 +30,7 @@ let points = parseInt(localStorage.getItem('piotrPoints')) || 0;
 document.getElementById('score').innerText = points;
 
 const btn = document.getElementById('spin-btn');
+const skipBtn = document.getElementById('skip-btn');
 const wrapper = document.querySelector('.spin-wrapper');
 const display = document.getElementById('result-display');
 const pName = document.getElementById('p-name');
@@ -40,11 +41,10 @@ const pEarned = document.getElementById('points-earned');
 const sndSpin = document.getElementById('sound-spin');
 const sndWin = document.getElementById('sound-win');
 
-sndWin.volume = 0.1
-
+sndWin.volume = 0.1;
 const SPIN_COST = 100;
+let spinTimeout;
 
-// Funkcja synchronizująca punkty z clickerem
 function syncWithClicker(newPoints) {
     let clickerData = JSON.parse(localStorage.getItem('piotrClickerData'));
     if (clickerData) {
@@ -52,6 +52,61 @@ function syncWithClicker(newPoints) {
         localStorage.setItem('piotrClickerData', JSON.stringify(clickerData));
     }
     localStorage.setItem('piotrPoints', newPoints);
+}
+
+function playWinSound() {
+    const soundClone = sndWin.cloneNode();
+    soundClone.volume = 0.1;
+    soundClone.play().catch(e => {});
+}
+
+function finishSpin() {
+    clearTimeout(spinTimeout);
+    sndSpin.pause();
+    sndSpin.currentTime = 0;
+    
+    const totalWeight = piotrowie.reduce((acc, p) => acc + p.weight, 0);
+    let random = Math.random() * totalWeight;
+    let selected = piotrowie[0];
+
+    for (let p of piotrowie) {
+        if (random < p.weight) { selected = p; break; }
+        random -= p.weight;
+    }
+
+    points += selected.points;
+    syncWithClicker(points);
+    document.getElementById('score').innerText = points;
+
+    let collection = JSON.parse(localStorage.getItem('piotrCollection')) || {};
+
+    if (Array.isArray(collection)) {
+        let newColl = {};
+        collection.forEach(name => newColl[name] = 1);
+        collection = newColl;
+    }
+
+    collection[selected.name] = (collection[selected.name] || 0) + 1;
+    localStorage.setItem('piotrCollection', JSON.stringify(collection));
+
+    pName.innerText = selected.name;
+    pDesc.innerText = selected.desc;
+    pImg.src = selected.img;
+    pEarned.innerText = `+${selected.points} PKT`;
+    
+    pRarity.innerText = selected.rarity.toUpperCase();
+    pRarity.className = 'rarity-tag ' + selected.rarity.toLowerCase().replace('ą', 'a');
+
+    wrapper.classList.remove('shaking-intense');
+    document.body.classList.add('white-flash');
+    display.style.display = 'flex';
+    
+    playWinSound();
+    
+    setTimeout(() => document.body.classList.remove('white-flash'), 200);
+    btn.disabled = false;
+    btn.innerHTML = '<i class="fa-solid fa-dice"></i> ZAKRĘĆ (100 PKT)';
+    skipBtn.style.display = 'none';
 }
 
 btn.addEventListener('click', () => {
@@ -66,57 +121,14 @@ btn.addEventListener('click', () => {
 
     btn.disabled = true;
     btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> LOSOWANIE...';
+    skipBtn.style.display = 'block';
     display.style.display = 'none';
     
     sndSpin.currentTime = 0;
     sndSpin.play().catch(e => {});
     wrapper.classList.add('shaking-intense');
 
-    setTimeout(() => {
-        const totalWeight = piotrowie.reduce((acc, p) => acc + p.weight, 0);
-        let random = Math.random() * totalWeight;
-        let selected = piotrowie[0];
-
-        for (let p of piotrowie) {
-            if (random < p.weight) { selected = p; break; }
-            random -= p.weight;
-        }
-
-        points += selected.points;
-        syncWithClicker(points);
-        document.getElementById('score').innerText = points;
-
-        // Dodawanie do kolekcji (z licznikiem)
-        let collection = JSON.parse(localStorage.getItem('piotrCollection')) || {};
-
-        // Jeśli kolekcja była starą tablicą, zmigruj ją na obiekt
-        if (Array.isArray(collection)) {
-            let newColl = {};
-            collection.forEach(name => newColl[name] = 1);
-            collection = newColl;
-        }
-
-        // Zwiększ licznik dla wylosowanego Piotra
-        collection[selected.name] = (collection[selected.name] || 0) + 1;
-        localStorage.setItem('piotrCollection', JSON.stringify(collection));
-
-        // Aktualizacja UI wynikowego
-        pName.innerText = selected.name;
-        pDesc.innerText = selected.desc;
-        pImg.src = selected.img;
-        pEarned.innerText = `+${selected.points} PKT`;
-        
-        pRarity.innerText = selected.rarity.toUpperCase();
-        pRarity.className = 'rarity-tag ' + selected.rarity.toLowerCase().replace('ą', 'a');
-
-        wrapper.classList.remove('shaking-intense');
-        document.body.classList.add('white-flash');
-        display.style.display = 'flex';
-        
-        sndWin.play().catch(e => {});
-        
-        setTimeout(() => document.body.classList.remove('white-flash'), 200);
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-dice"></i> ZAKRĘĆ (100 PKT)';
-    }, 5800); 
+    spinTimeout = setTimeout(finishSpin, 5800); 
 });
+
+skipBtn.addEventListener('click', finishSpin);
